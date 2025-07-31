@@ -9,7 +9,7 @@ import random
 
 
 
-# 🔧 Create engine only once
+# Create engine only once
 import pyttsx3
 listening= True
 
@@ -25,7 +25,7 @@ def speak(text):
 
 
 
-# 🧠 Stylish responses
+# Stylish responses
 startup_lines = [
     "Welcome back, Nova's here.",
     "All systems primed and ready,ma'am."
@@ -44,10 +44,10 @@ shutdown_lines = [
     "Shutting down. Nova out."
 ]
 
-# 🔐 DeepSeek API key (Replace with your actual key)
-DEEPSEEK_API_KEY = 'sk-b891ac489be941009071f903d1ae0edb'
+# DeepSeek API key 
+DEEPSEEK_API_KEY = 'Paste your key here'
 
-# 🎤 Wake word listener
+# Wake word listener
 def listen_for_wake_word(wake_word="nova"):
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
@@ -76,7 +76,7 @@ def listen_for_wake_word(wake_word="nova"):
 
 
 
-# 🔊 Main command listener
+#  Main command listener
 def listen_command():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
@@ -86,7 +86,7 @@ def listen_command():
         try:
             audio = recognizer.listen(source, timeout=5, phrase_time_limit=7)
             command = recognizer.recognize_google(audio)
-            speak(f"You said: {command}")  # 🔊 Now Nova will speak the command
+            speak(f"You said: {command}")  
             print("You said:", command)
             return command.lower()
         except sr.UnknownValueError:
@@ -100,7 +100,7 @@ def listen_command():
             return ""
 
 
-# 💬 DeepSeek AI integration
+# DeepSeek AI integration
 def ask_deepseek(prompt):
     url = "https://api.deepseek.com/openai/v1/chat/completions"
     headers = {
@@ -119,7 +119,7 @@ def ask_deepseek(prompt):
     except Exception:
         return "Sorry, I couldn't reach DeepSeek."
 
-# 📧 Email functionality
+# Email functionality
 def send_email():
     try:
         speak("Who is the recipient?")
@@ -128,14 +128,14 @@ def send_email():
         content = listen_command()
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login('itssadhanahere@gmail.com', 'vclbrejvzfwcbodv')  # ⚠️ Store securely!
-        server.sendmail('itssadhanahere@gmail.com', to, content)
+        server.login('your_mailid', 'password')  # ⚠️ Store securely!
+        server.sendmail('your_maidid', to, content)
         server.quit()
         speak("Email sent successfully.")
     except:
         speak("Failed to send email.")
 
-# 🎵 Music player
+#  Music player
 def play_music():
     playlist_url = "https://open.spotify.com/playlist/6QT22ZcbGuaFZkRowjIGRE"
     try:
@@ -144,7 +144,7 @@ def play_music():
     except:
         speak("Sorry, I couldn't open the playlist.")
 
-# 🔍 Wikipedia search
+#  Wikipedia search
 def search_meaning(query):
     try:
         query = query.replace("what do you mean by", "").replace("who is", "").replace("search for", "").strip()
@@ -158,7 +158,7 @@ def search_meaning(query):
     except wikipedia.exceptions.PageError:
         speak("Sorry, I couldn't find any results.")
 
-# 💻 Command execution
+#  Command execution
 def execute_command(command):
     command = command.lower()
 
@@ -249,7 +249,7 @@ def execute_command(command):
         response = ask_deepseek(command)
         speak(response)
 
-# 🚀 Start assistant
+#  Start assistant
 def main_loop():
     global listening
     speak(random.choice(startup_lines))
